@@ -10,18 +10,7 @@ export function App () {
   const [imageUrl, setImageUrl] = useState()
   const [factError, setFactError] = useState()
 
-  // Recuperar la cita al cargar la pagina
-  useEffect(() => {
-    // async function getRandomFact() {
-    //   const res = await fetch(CAT_ENDPOINT_RANDOM_FACT)
-
-    //   const json = await res.json()
-
-    //   setFact(json.fact)
-    // }
-
-    // getRandomFact()
-
+  const getRandomFact = () => {
     fetch(CAT_ENDPOINT_RANDOM_FACT)
       .then(res =>{
         // console.log(res)
@@ -40,7 +29,22 @@ export function App () {
         // Si hay error con la respuesta
         // Si hay un error con la peticion
       })
+  }
+
+  // Recuperar la cita al cargar la pagina
+  useEffect(() => {
+    // async function getRandomFact() {
+    //   const res = await fetch(CAT_ENDPOINT_RANDOM_FACT)
+
+    //   const json = await res.json()
+
+    //   setFact(json.fact)
+    // }
+
+    // getRandomFact()    
   }, [])
+
+  useEffect(getRandomFact, [])
 
   // Recuperar la imagen cada vez que tenemos una cita nueva
   useEffect(() => {
@@ -60,10 +64,17 @@ export function App () {
     })
   }, [fact])
 
+  const handleClick = () => {
+    getRandomFact()
+  }
+
   return (
     // <main style={{ display: 'flex', flexDirection: 'column' }}>
     <main>
       <h1>App de gatitos</h1>
+        <button onClick={handleClick}>
+          Get new fact
+        </button>
       {/* <section> */}
         {fact && <p>{fact}</p>}
         {imageUrl && <img src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`} alt={`Image extracted using the first three words for ${fact}`} />}
