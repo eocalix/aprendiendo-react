@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react"
 import './App.css'
+import { CAT_PREFIX_IMAGE_URL } from './constants'
 import { getRandomFact } from "./services/facts"
 import { getImageUrl } from "./services/images"
+import { useCatImage } from "./hooks/useCatImage"
 
-
-// const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
-const CAT_PREFIX_IMAGE_URL = 'https://cataas.com/cat/'
 
 export function App () {
   const [fact, setFact] = useState('')
-  const [imageUrl, setImageUrl] = useState()
   const [factError, setFactError] = useState()
+  const { imageUrl } = useCatImage({ fact })
 
 
   // Recuperar la cita al cargar la pagina
@@ -20,10 +19,10 @@ export function App () {
   }, [])
 
   // Recuperar la imagen cada vez que tenemos una cita nueva
-  useEffect(() => {
-    if (!fact) return
-    getImageUrl(fact).then(newImageUrl => setImageUrl(newImageUrl))
-  }, [fact])
+  // useEffect(() => {
+  //   if (!fact) return
+  //   getImageUrl(fact).then(newImageUrl => setImageUrl(newImageUrl))
+  // }, [fact])
   // useEffect(() => {
   //   if (!fact) return
 

@@ -1,4 +1,4 @@
-const CAT_PREFIX_IMAGE_URL = 'https://cataas.com/cat/'
+import { CAT_PREFIX_IMAGE_URL } from '../constants'
 
 export const getImageUrl = (fact) => {
   const firstWord = fact.split(' ')[0]
