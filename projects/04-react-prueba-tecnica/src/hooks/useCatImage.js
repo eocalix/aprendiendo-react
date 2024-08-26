@@ -14,9 +14,11 @@ export function useCatImage ({ fact }) {
       .then(res => res.json())
       .then(response => {
         const { _id: id } = response
-        setImageUrl(`${id}/says/${threeFirstWords}`)
+        // const url = `${id}/says/${threeFirstWords}`
+        const url = `${CAT_PREFIX_IMAGE_URL}${id}/says/${threeFirstWords}`
+        setImageUrl(url)
     })
   }, [fact])
 
-  return { imageUrl }
+  return { imageUrl: imageUrl }
 }
