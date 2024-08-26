@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react"
 import './App.css'
 import { CAT_PREFIX_IMAGE_URL } from './constants'
-import { getRandomFact } from "./services/facts"
 import { getImageUrl } from "./services/images"
 import { useCatImage } from "./hooks/useCatImage"
+import { useCatFact } from './hooks/useCatFact'
+
 
 
 export function App () {
-  const [fact, setFact] = useState('')
-  const [factError, setFactError] = useState()
+  
+  // const [factError, setFactError] = useState()
+  const { fact, refreshFact } = useCatFact()
   const { imageUrl } = useCatImage({ fact })
-
-
-  // Recuperar la cita al cargar la pagina
-  useEffect(() => {
-    // getRandomFact().then(setFact)
-    getRandomFact().then(newFact => setFact(newFact))
-  }, [])
-
+  
   // Recuperar la imagen cada vez que tenemos una cita nueva
   // useEffect(() => {
   //   if (!fact) return
@@ -38,8 +32,7 @@ export function App () {
   // }, [fact])
 
   const handleClick = async () => {
-    const newFact = await getRandomFact()
-    setFact(newFact)
+    refreshFact()
   }
 
   return (
